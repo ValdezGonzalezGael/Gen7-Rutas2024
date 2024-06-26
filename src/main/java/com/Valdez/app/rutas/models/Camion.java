@@ -5,20 +5,25 @@ import com.Valdez.app.rutas.models.enums.Tipos;
 
 public class Camion {
     private Long id;
-
     private String matricula;
-
     private Tipos tipoCamion;
-
     private Integer modelo;
-
     private Marcas marca;
-
     private Integer capacidad;
-
     private Float kilometraje;
-
     private Boolean disponibilidad;
+
+    public Camion() {
+        this.id = id;
+        this.matricula = matricula;
+        this.tipoCamion = tipoCamion;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.capacidad = capacidad;
+        this.kilometraje = kilometraje;
+        this.disponibilidad = disponibilidad;
+    }
+
 
     public Long getId() {
         return id;

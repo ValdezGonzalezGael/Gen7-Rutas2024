@@ -19,7 +19,7 @@ public class CamionesRepository implements IRepository<Camion>{
     }
 
     @Override
-    public List<Camion> listar() throws SQLException {
+    public List<Camion> lista() throws SQLException {
         List<Camion> camiones = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
              ResultSet rs=stmt.executeQuery("SELECT * FROM CAMIONES")){
@@ -70,15 +70,17 @@ public class CamionesRepository implements IRepository<Camion>{
                 stm.setInt(5, camion.getCapacidad());
                 stm.setFloat(5,camion.getKilometraje());
 //                operador ternario
-                stm.setInt(7, camion.getDisponibilidad() ? 1 : 0);
+                stm.setInt(7, camion.getDisponibilidad()? 1 : 0);
             }
             stm.executeUpdate();
-        }
+        }catch (SQLException e){ System.out.println("ERROR:"+e);  }
     }
 
     @Override
-    public void eliminar(Camion camion) throws SQLException {
+    public void eliminar(Long id) throws SQLException {
+
     }
+
 
     //Mapear, transformar un renglon, fila, registro, row en un objeto de tipo camion
 

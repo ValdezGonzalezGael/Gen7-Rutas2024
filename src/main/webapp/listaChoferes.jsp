@@ -43,7 +43,7 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/listar">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
                        <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
                    </ul>
                </li>
@@ -53,8 +53,8 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/listar">Lista Camiones</a></li>
-                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Camion</a></li>
                    </ul>
                </li>
 
@@ -118,7 +118,7 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
                                     <a href="<%=request.getContextPath()%>/choferes/editar?id=<%=c.getId()%>" class="btn btn-primary">Editar</a>
                                 </td>
                                 <td>
-                                   <a href="<%=request.getContextPath()%>/choferes/deliminar?id=<%=c.getId()%>" class="btn btn-danger">Eliminar</a>
+                                   <a href="<%=request.getContextPath()%>/choferes/eliminar?id=<%=c.getId()%>" class="btn btn-danger">Eliminar</a>
                               </td>
                            </tr>
                          <% } %>

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.List;
 
-@WebServlet("/choferes/listar")
+@WebServlet("/choferes/lista")
 public class ListaChoferesServlet extends HttpServlet {
 
     @Override
@@ -23,7 +23,7 @@ public class ListaChoferesServlet extends HttpServlet {
 
         //Declaramos un objeto de tipo servicio
         IService<Chofer> service = new ChoferesService(conn);
-        List<Chofer> choferes=service.listar();
+        List<Chofer> choferes=service.lista();
 //        for (Chofer c:choferes){
 //            resp.getWriter().println("<h1>"+c.getId()+" ->"
 //            +c.getNombre()+" ->"+c.getApPaterno()+"</h1>");

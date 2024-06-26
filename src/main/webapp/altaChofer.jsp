@@ -42,7 +42,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/listar">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
                        <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
                    </ul>
                </li>
@@ -52,7 +52,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/listar">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
                        <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>

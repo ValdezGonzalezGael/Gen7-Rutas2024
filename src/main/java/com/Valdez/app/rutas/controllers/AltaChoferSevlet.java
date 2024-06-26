@@ -76,7 +76,7 @@ public class AltaChoferSevlet extends HttpServlet {
             chofer.setFechaNacimiento(fecha);
             chofer.setDisponibilidad(habilitar);
             service.guardar(chofer);
-            resp.sendRedirect(req.getContextPath()+"/choferes/listar");
+            resp.sendRedirect(req.getContextPath()+"/choferes/lista");
 
         }else {
             req.setAttribute("errores",errores);

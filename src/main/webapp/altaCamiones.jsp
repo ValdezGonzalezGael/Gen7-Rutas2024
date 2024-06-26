@@ -42,7 +42,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camione/listar">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
                        <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camiones</a></li>
                    </ul>
                </li>
@@ -52,7 +52,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/listar">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
                        <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>
@@ -86,7 +86,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
         <% } %>
 
         <div class="row">
-            <form action="<%=request.getContextPath()%>/camion/alta" method="post">
+            <form action="<%=request.getContextPath()%>/camiones/alta" method="post">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Matricula</label>

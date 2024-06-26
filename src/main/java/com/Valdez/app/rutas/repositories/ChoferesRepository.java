@@ -7,17 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChoferesRepository implements IRepository<Chofer>{
-
-    //Atributos
     private Connection conn; //Importamos de java.sql
-
-    //constructor
     public ChoferesRepository(Connection conn){
         this.conn=conn;
     }
 
     @Override
-    public List<Chofer> listar() throws SQLException {
+    public List<Chofer> lista() throws SQLException {
         List<Chofer> choferes = new ArrayList<>();
         try (Statement stmt = conn.createStatement();
             ResultSet rs=stmt.executeQuery("SELECT * FROM CHOFERES")){
@@ -33,17 +29,16 @@ public class ChoferesRepository implements IRepository<Chofer>{
 
     @Override
     public Chofer getById(Long id) throws SQLException {
-        Chofer chofer = null;
-        try (PreparedStatement stmt =
-                conn.prepareStatement("SELECT * FROM choferes WHERE ID_CHOFER=?")){
+        Chofer chofer =null;
+        try(PreparedStatement stmt=conn.prepareStatement("SELECT * FROM CHOFERES WHERE ID_CHOFER=?")){
             stmt.setLong(1,id);
-            try (ResultSet res = stmt.executeQuery()){
-                if (rs.next()){
-                    chofer = this.getChofer(rs);
+            try(ResultSet rs= stmt.executeQuery()){
+                if(rs.next()){
+                    chofer=this.getChofer(rs);
                 }
             }
         }
-        return chofer;
+        return  chofer;
     }
 
     @Override
@@ -83,15 +78,20 @@ public class ChoferesRepository implements IRepository<Chofer>{
                 stm.setInt(7, chofer.getDisponibilidad() ? 1 : 0);
             }
             stm.executeUpdate();
-        }
+        }catch (SQLException e){   }
     }
 
     @Override
-    public void eliminar(Chofer chofer) throws SQLException {
-
+    public void eliminar(Long id) throws SQLException {
+        String sql = "delete from choferes where id_chofe=?";
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setLong(1,id);
+            stmt.executeUpdate();
+        }
     }
 
     //Mapear, transformar un renglon, fila, registro, row en un objeto de tipo chofer
+
 
     private Chofer getChofer(ResultSet rs) throws SQLException{
         Chofer a= new Chofer();

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface IService <T>{
 
-    List<T> listar();
+    List<T> lista();
 
     Optional <T> getById(Long id);
 

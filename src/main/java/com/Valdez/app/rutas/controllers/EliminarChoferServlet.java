@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.Optional;
 
-@WebServlet("/choferes/detalle")
-public class DetalleChoferServlet extends HttpServlet {
+@WebServlet("/choferes/eliminar")
+public class EliminarChoferServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Connection connection = (Connection) req.getAttribute("conn");
@@ -22,27 +22,20 @@ public class DetalleChoferServlet extends HttpServlet {
         long id;
         try {
             id = Long.parseLong(req.getParameter("id"));
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             id = 0L;
         }
         Chofer chofer = new Chofer();
-        if (id>0){
+        if (id > 0) {
             Optional<Chofer> optionalDriver = service.getById(id);
-            if (optionalDriver.isPresent()){
-                chofer = optionalDriver.get();
-                req.setAttribute("chofer", chofer);
-                getServletContext().getRequestDispatcher("/detalleChofer.jsp").forward(req, resp);
-            }else {
+            if (optionalDriver.isPresent()) {
+                service.eliminar(id);
+                resp.sendRedirect(req.getContextPath()+ "/choferes/listar");
+            } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "No existe el chofer en la BDD");
             }
-        }else {
+        } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Error en el ID");
         }
     }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-    }
-
-
+}

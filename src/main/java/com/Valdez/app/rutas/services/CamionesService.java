@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CamionesService implements IService<Camion>{
-    //Atributos
     private IRepository<Camion> camionRepo;
 
     //Constructor
@@ -19,12 +18,11 @@ public class CamionesService implements IService<Camion>{
     }
 
     @Override
-    public List<Camion> listar() {
+    public List<Camion> lista() {
         try{
-            return camionRepo.listar();
-
-        }catch (SQLException e ){
-            throw new RuntimeException(e.getMessage(),e.getCause());
+            return camionRepo.lista();
+        }catch (SQLException e){
+            throw  new RuntimeException(e.getMessage(),e.getCause());
         }
     }
 

@@ -74,7 +74,7 @@ public class AltaCamionServlet extends HttpServlet {
             camion.setTipoCamion(Tipos.valueOf(tipocamion));
             camion.setDisponibilidad(habilitar);
             service.guardar(camion);
-            resp.sendRedirect(req.getContextPath()+"/camiones/listar");
+            resp.sendRedirect(req.getContextPath()+"/camiones/lista");
 
         }
         else{

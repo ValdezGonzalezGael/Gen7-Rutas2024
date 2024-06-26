@@ -20,9 +20,9 @@ public class ChoferesService implements IService<Chofer>{
     }
 
     @Override
-    public List<Chofer> listar() {
+    public List<Chofer> lista() {
         try{
-            return choferesRepo.listar();
+            return choferesRepo.lista();
 
         }catch (SQLException e ){
             throw new RuntimeException(e.getMessage(),e.getCause());
@@ -50,6 +50,10 @@ public class ChoferesService implements IService<Chofer>{
 
     @Override
     public void eliminar(Long id) {
-
+        try{
+            choferesRepo.eliminar(id);
+        }catch (SQLException e ){
+            throw new RuntimeException(e.getMessage(),e.getCause());
+        }
     }
 }

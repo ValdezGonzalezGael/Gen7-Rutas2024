@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="java.util.*" %>
-<%@page import="com.Valdez.rutas.rutas.models.*" %>
+<%@page import="com.Valdez.app.rutas.models.*" %>
 <%
 //recuperamos la lista de choferes que obtuvimos en el request desde el servlet
 List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
@@ -41,8 +41,8 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/listar">Lista Choferes</a></li>
-                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Chofer</a></li>
                    </ul>
                </li>
 
@@ -51,7 +51,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/listar">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
                        <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>
@@ -109,13 +109,13 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                                 <td><%=ca.getKilometraje()%></td>
                                 <td><%=ca.getDisponibilidad()%></td>
                                 <td>
-                                    <a href="<%=request.getContextPath()%>/choferes/detalle?id=<%=ca.getId()%>" class="btn btn-success">detalle</a>
+                                    <a href="<%=request.getContextPath()%>/camiones/detalle?id=<%=ca.getId()%>" class="btn btn-success">detalle</a>
                                 </td>
                                 <td>
-                                    <a href="<%=request.getContextPath()%>/choferes/editar?id=<%=ca.getId()%>" class="btn btn-primary">Editar</a>
+                                    <a href="<%=request.getContextPath()%>/camiones/editar?id=<%=ca.getId()%>" class="btn btn-primary">Editar</a>
                                 </td>
                                 <td>
-                                    <a href="<%=request.getContextPath()%>/choferes/eliminar?id=<%=ca.getId()%>" class="btn btn-danger">Eliminar</a>
+                                    <a href="<%=request.getContextPath()%>/camiones/eliminar?id=<%=ca.getId()%>" class="btn btn-danger">Eliminar</a>
                                 </td>
                             </tr>
                             <% } %>
