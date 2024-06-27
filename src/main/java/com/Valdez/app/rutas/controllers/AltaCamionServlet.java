@@ -79,7 +79,7 @@ public class AltaCamionServlet extends HttpServlet {
         }
         else{
             req.setAttribute("errores",errores);
-            getServletContext().getRequestDispatcher("/altaCamion.jsp").forward(req,resp);
+            getServletContext().getRequestDispatcher("/altaCamiones.jsp").forward(req,resp);
         }
 
     }

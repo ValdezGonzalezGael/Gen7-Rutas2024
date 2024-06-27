@@ -30,7 +30,7 @@ public class EliminarChoferServlet extends HttpServlet {
             Optional<Chofer> optionalDriver = service.getById(id);
             if (optionalDriver.isPresent()) {
                 service.eliminar(id);
-                resp.sendRedirect(req.getContextPath()+ "/choferes/listar");
+                resp.sendRedirect(req.getContextPath()+ "/choferes/lista");
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "No existe el chofer en la BDD");
             }

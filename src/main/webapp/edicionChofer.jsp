@@ -1,8 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="java.util.*" %>
+<%@page import="com.Valdez.app.rutas.models.*" %>
+<%@page import="java.time.format.*" %>
 
 <%
 Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
+    Chofer Chofer = (Chofer) request.getAttribute("chofer");
+String fecha = chofer.getFechaNacimiento() != null ? chofer.getFechaNacimiento()
+.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): " ";
+Boolean estado = chofer.getDisponibilidad();
+String disponibilidad = estado == true ? "cheked" : "";
 %>
 
 <!DOCTYPE html>
@@ -42,8 +49,8 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/lista%>">Lista Choferes</a></li>
-                       <li><a href="<%=request.getContextPath()%>/choferes/alta%>">>Alta Chofer</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
                    </ul>
                </li>
 
@@ -52,8 +59,8 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/lista%>">Lista Camiones</a></li>
-                       <li><a href="<%=request.getContextPath()%>/camiones/alta%>">Alta Camion</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>
 
@@ -62,7 +69,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Rutas<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/rutas/alta<%">Alta Ruta</a></li>
+                       <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
                    </ul>
                </li>
            </ul>
@@ -86,11 +93,12 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
         <% } %>
 
         <div class="row">
-            <form action="<%=request.getContextPath()%>/choferes/alta" method="post">
+            <form action="<%=request.getContextPath()%>/choferes/editar" method="post">
+                <input type="hidden" name="id" value="<%=chofer.getId()%>"></input>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" value="${param.nombre}">
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="<%=chofer.getNombre() !=null? chofer.getNombre(): "" %>">
                         <%
                             if (errores != null && errores.containsKey("nombre")){
                                 out.println("<span class='text-danger'>"+ errores.get("nombre")+"</span>");
@@ -100,7 +108,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Apellido Paterno</label>
-                        <input type="text" name="apPaterno" id="apPaterno" class="form-control" value="${param.apPaterno}">
+                        <input type="text" name="apPaterno" id="apPaterno" class="form-control" value="<%=chofer.getNombre() !=null? apPaterno.getNombre(): ""%>">
                         <%
                             if (errores != null && errores.containsKey("apPaterno")){
                                 out.println("<span class='text-danger'>"+ errores.get("apPaterno")+"</span>");
@@ -110,7 +118,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Apellido Materno</label>
-                        <input type="text" name="apMaterno" id="apMaterno" class="form-control" value="${param.apMaterno}">
+                        <input type="text" name="apMaterno" id="apMaterno" class="form-control" value="<%=chofer.getNombre() !=null? apMaterno.getNombre(): ""%>">
                         <%
                             if (errores != null && errores.containsKey("apMaterno")){
                                 out.println("<span class='text-danger'>"+ errores.get("apMaterno")+"</span>");
@@ -120,7 +128,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Licencia</label>
-                        <input type="text" name="licencia" id="licencia" class="form-control" value="${param.licencia}">
+                        <input type="text" name="licencia" id="licencia" class="form-control" value="<%=chofer.getNombre() !=null? licencia.getNombre(): ""%>">
                         <%
                             if (errores != null && errores.containsKey("licencia")){
                                 out.println("<span class='text-danger'>"+ errores.get("licencia")+"</span>");
@@ -130,7 +138,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Telefono</label>
-                        <input type="text" name="telefono" id="telefono" class="form-control" value="${param.telefono}">
+                        <input type="text" name="telefono" id="telefono" class="form-control" value="<%=chofer.getNombre() !=null? telefono.getNombre(): ""%>">
                         <%
                             if (errores != null && errores.containsKey("telefono")){
                                 out.println("<span class='text-danger'>"+ errores.get("telefono")+"</span>");
@@ -140,7 +148,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Fecha de Nacimiento</label>
-                        <input type="text" name="fechanacimiento" id="fechanacimiento" class="form-control" value="${param.fechNacimiento}">
+                        <input type="text" name="fechanacimiento" id="fechanacimiento" class="form-control" value="<%fecha%>">
                         <%
                             if (errores != null && errores.containsKey("fechanacimiento")){
                                 out.println("<span class='text-danger'>"+ errores.get("fechanacimiento")+"</span>");
@@ -151,7 +159,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                     <div class="form-group">
                         <label for="">Disponibilidad</label>
                         <input type="checkbox" name="disponibilidad" id="disponibilidad"
-                                class="form-check-input" value="${param.disponibilidad}">
+                                class="form-check-input" value="1"   <%=disponible%>>
                     </div>
 
                     <div class="form-group">
@@ -159,7 +167,6 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </body>
