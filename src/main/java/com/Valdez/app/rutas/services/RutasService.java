@@ -25,7 +25,6 @@ public class RutasService implements  IRutasService{
     public List<Camion> listarCamiones() {
         try{
             return camionesRepo.lista();
-
         }catch (SQLException e ){
             throw new RuntimeException(e.getMessage(),e.getCause());
         }
@@ -35,7 +34,6 @@ public class RutasService implements  IRutasService{
     public List<Chofer> listarChoferes() {
         try{
             return choferesRepo.lista();
-
         }catch (SQLException e ){
             throw new RuntimeException(e.getMessage(),e.getCause());
         }
@@ -45,7 +43,6 @@ public class RutasService implements  IRutasService{
     public Long guardarReturnId(Ruta ruta) {
         try{
             return rutasRepository.guardarReturnId(ruta);
-
         }catch (SQLException e ){
             throw new RuntimeException(e.getMessage(),e.getCause());
         }

@@ -1,9 +1,11 @@
 package com.Valdez.app.rutas.models.enums;
 
 public enum Marcas {
-    VOLVO,
+    Volvo,
     ALLIANCE,
     FORD,
     MERCEDES_BENZ,
-    DINA
+    DINA,
+    Mercedes,
+    Scania
 }

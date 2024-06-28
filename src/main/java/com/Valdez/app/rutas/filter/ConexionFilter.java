@@ -24,9 +24,6 @@ public class ConexionFilter implements Filter {
             filterChain.doFilter(servletRequest,servletResponse);
         }catch (IOException e){
             throw new RuntimeException(e);
-        }catch (ServletException e){
-            throw new RuntimeException(e);
         }
     }
-
 }

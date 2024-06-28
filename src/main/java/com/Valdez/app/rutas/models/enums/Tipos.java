@@ -5,5 +5,9 @@ public enum Tipos {
     TORTON,
     DOBLE_REMOLQUE,
     VOLTEO,
-    SEMI_REMOLQUE
+    SEMI_REMOLQUE,
+    REMOLQUE,
+    Refrigerado,
+    Cisterna,
+    Plataforma
 }

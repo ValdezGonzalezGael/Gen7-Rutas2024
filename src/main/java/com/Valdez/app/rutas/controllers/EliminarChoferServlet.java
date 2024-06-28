@@ -17,8 +17,8 @@ import java.util.Optional;
 public class EliminarChoferServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection connection = (Connection) req.getAttribute("conn");
-        IService<Chofer> service = new ChoferesService(connection);
+        Connection conn = (Connection) req.getAttribute("conn");
+        IService<Chofer> service = new ChoferesService(conn);
         long id;
         try {
             id = Long.parseLong(req.getParameter("id"));

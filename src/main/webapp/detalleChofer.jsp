@@ -6,9 +6,10 @@
 <%
 Chofer Chofer = (Chofer) request.getAttribute("chofer");
 String fecha = chofer.getFechaNacimiento() != null ? chofer.getFechaNacimiento()
-.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): " ";
+.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): null;
 Boolean estado = chofer.getDisponibilidad();
 String disponibilidad = estado == true ? "Disponible" : "No disponible";
+String telefono= chofer.getTelefono() != null ? chofer.getTelefono() : "Sin numero";
 %>
 
 
@@ -82,7 +83,7 @@ String disponibilidad = estado == true ? "Disponible" : "No disponible";
     <div class="row">
         <div class="col-12">
             <div class="card border">
-                <div class="car-heder">
+                <div class="car-header">
                     <h3><strong>Detalle chofer</strong></h3>
                 </div>
             </div>
@@ -93,7 +94,7 @@ String disponibilidad = estado == true ? "Disponible" : "No disponible";
                     <li class="list-group-item"><strong>Ap. Materno </strong><%=chofer.getApMaterno()%></li>
                     <li class="list-group-item"><strong>Licencia: </strong><%=chofer.getLicencia()%></li>
                     <li class="list-group-item"><strong>Telefono: </strong><%=chofer.getTelefono()%></li>
-                    <li class="list-group-item"><strong>Fecha Nacimiento: </strong><%=chofer.getfecha%></li>
+                    <li class="list-group-item"><strong>Fecha de Nacimiento: </strong><%=chofer.getfecha%></li>
                     <li class="list-group-item"><strong>Disponibilidad: </strong><%=chofer.getdisponibilidad %></li>
                 </ul>
             </div>

@@ -35,7 +35,16 @@ public class CamionesRepository implements IRepository<Camion>{
 
     @Override
     public Camion getById(Long id) throws SQLException {
-        return null;
+        Camion camiones =null;
+        try(PreparedStatement stmt=conn.prepareStatement("SELECT * FROM CAMIONES WHERE ID_CAMION=?")){
+            stmt.setLong(1,id);
+            try(ResultSet rs= stmt.executeQuery()){
+                if(rs.next()){
+                    camiones=this.getCamion(rs);
+                }
+            }
+        }
+        return  camiones;
     }
 
     @Override
@@ -78,12 +87,17 @@ public class CamionesRepository implements IRepository<Camion>{
 
     @Override
     public void eliminar(Long id) throws SQLException {
+        String sql ="delete from camiones where id_camion=?";
+        try(PreparedStatement stmt=conn.prepareStatement(sql)){
+            stmt.setLong(1,id);
+            stmt.executeUpdate();
 
+        }catch (SQLException e){
+
+        }
     }
 
-
     //Mapear, transformar un renglon, fila, registro, row en un objeto de tipo camion
-
     private Camion getCamion (ResultSet rs) throws SQLException{
         Camion a= new Camion();
 

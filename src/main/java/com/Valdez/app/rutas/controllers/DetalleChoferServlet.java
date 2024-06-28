@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @WebServlet("/choferes/detalle")
 public class DetalleChoferServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Connection connection = (Connection) req.getAttribute("conn");
@@ -39,10 +40,10 @@ public class DetalleChoferServlet extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Error en el ID");
         }
     }
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doPost(req, resp);
+//    }
 }
 
 

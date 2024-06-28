@@ -20,7 +20,7 @@ import java.util.Map;
 public class AltaCamionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/altaCamion.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/altaCamiones.jsp").forward(req,resp);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class AltaCamionServlet extends HttpServlet {
         Connection conn=(Connection) req.getAttribute("conn");
         IService<Camion> service=new CamionesService(conn);
         String matricula=req.getParameter("matricula");
-        String tipocamion=req.getParameter("tipocamion");
+        String tipoCamion=req.getParameter("tipoCamion");
         String modelo=req.getParameter("modelo");
         String marca=req.getParameter("marca");
         String capacidad=req.getParameter("capacidad");
@@ -47,8 +47,8 @@ public class AltaCamionServlet extends HttpServlet {
         if(matricula==null|| matricula.isBlank()){
             errores.put("matricula","La matricula es requerida!");
         }
-        if(tipocamion==null|| tipocamion.isBlank()){
-            errores.put("tipocamion","el tipo de camion es requerido!");
+        if(tipoCamion==null|| tipoCamion.isBlank()){
+            errores.put("tipoCamion","el tipo de camion es requerido!");
         }
         if(modelo==null|| modelo.isBlank()){
             errores.put("modelo","el modelo es requerido!");
@@ -71,7 +71,7 @@ public class AltaCamionServlet extends HttpServlet {
             camion.setKilometraje(Float.valueOf(kilometraje));
             camion.setCapacidad(Integer.valueOf(capacidad));
             camion.setModelo(Integer.valueOf(modelo));
-            camion.setTipoCamion(Tipos.valueOf(tipocamion));
+            camion.setTipoCamion(Tipos.valueOf(tipoCamion));
             camion.setDisponibilidad(habilitar);
             service.guardar(camion);
             resp.sendRedirect(req.getContextPath()+"/camiones/lista");
@@ -81,6 +81,5 @@ public class AltaCamionServlet extends HttpServlet {
             req.setAttribute("errores",errores);
             getServletContext().getRequestDispatcher("/altaCamiones.jsp").forward(req,resp);
         }
-
     }
 }

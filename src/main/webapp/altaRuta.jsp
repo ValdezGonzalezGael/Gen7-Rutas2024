@@ -19,6 +19,17 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
+
+    <style>
+           #loadingMessage {
+               display: none;
+               margin-top: 20px;
+               text-align: center;
+           }
+       </style>
+
+
+
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -42,7 +53,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/listar">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
                        <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
                    </ul>
                </li>
@@ -52,7 +63,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/listar">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Camiones</a></li>
                        <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>
@@ -62,7 +73,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Rutas<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
+                       <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Camion</a></li>
                    </ul>
                </li>
            </ul>
@@ -217,11 +228,34 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                         <div class="row">
                             <div class="col-md-10-offset-1">
                                     <div class="col-md-4">
-                                        <div class="btn btn-success" onclick="btnGUardarDir()">Guardar</div>
+                                        <div class="btn btn-success" onclick="btnGuardarDir()">Guardar</div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                        </div>
+                                    </div>
+                                    <div id="loadingMessage">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Cargando...</span>
+                                    </div>
+                                    <div>Cargando...</div>
                                     </div>
                                     <div class="con-md-4 col-md-offset-2">
                                         <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                     </div>
+
+                                      <!-- Incluyendo jQuery, Popper.js y Bootstrap JS -->
+
+                                        <script>
+                                            function btnGuardarDir() {
+                                                var loadingMessage = document.getElementById('loadingMessage');
+                                                loadingMessage.style.display = 'block';
+
+                                                setTimeout(function() {
+                                                    loadingMessage.style.display = 'none';
+                                                    $('#myModal').modal('hide'); // Cerrar el modal después de 6 segundos
+                                                }, 6000); // 6000 milisegundos = 6 segundos
+                                            }
+                                        </script>
+
                             </div>
                         </div>
                     </div>
@@ -306,6 +340,35 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                         alert("No podemos obtener datos sin no proporciona una direccion");
                         $("#myModal").modal('hide');
                     }
+            }
+
+            function btnGardarDir(){
+                var calle = $('#Calle').val();
+                var numero= $('#Numero').val();
+                var colonia= $('#Colonia').val();
+                var ciudad = $('#Ciudad').val();
+                var estado = $('#estado').val();
+                var cp = $('#Cp').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:8080/Gen7-Api-2024/api/direcciones",
+                    data: {"calle": calle, "numero": numero, "colonia": colonia, "ciudad":ciudad,
+                        "estado":estado, "cp": cp},
+                        //Esperar la respuesta del servidor
+                        success:function(resp){
+                            //mostrar respuesta
+                            console.log(resp);
+                                $('#myModal').modal('hide');
+                                if($('#txtEsOD').val() == 1 ){//es origen
+                                    $("#idorigen").val(resp.message);
+                                }
+                                else{//es destino
+                                    $("#idDestino").val(resp.message);
+                                }
+                        }
+                        //habilitar el boton
+                });
             }
      </script>
 </body>

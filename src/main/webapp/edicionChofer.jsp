@@ -5,9 +5,9 @@
 
 <%
 Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
-    Chofer Chofer = (Chofer) request.getAttribute("chofer");
+Chofer Chofer = (Chofer) request.getAttribute("chofer");
 String fecha = chofer.getFechaNacimiento() != null ? chofer.getFechaNacimiento()
-.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): " ";
+.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): null;
 Boolean estado = chofer.getDisponibilidad();
 String disponibilidad = estado == true ? "cheked" : "";
 %>
@@ -69,7 +69,7 @@ String disponibilidad = estado == true ? "cheked" : "";
                        aria-haspopup="true" aria-expanded="false">Rutas<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Ruta</a></li>
                    </ul>
                </li>
            </ul>
@@ -94,11 +94,11 @@ String disponibilidad = estado == true ? "cheked" : "";
 
         <div class="row">
             <form action="<%=request.getContextPath()%>/choferes/editar" method="post">
-                <input type="hidden" name="id" value="<%=chofer.getId()%>"></input>
+                <input type="hidden" name="id" id="id" value="<%=chofer.getId()%>"></input>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" value="<%=chofer.getNombre() !=null? chofer.getNombre(): "" %>">
+                        <input type="text" name="nombre" id="nombre" class="form-control" value="<%=chofer.getNombre() !=null? chofer.getNombre():"" %>">
                         <%
                             if (errores != null && errores.containsKey("nombre")){
                                 out.println("<span class='text-danger'>"+ errores.get("nombre")+"</span>");
@@ -108,7 +108,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Apellido Paterno</label>
-                        <input type="text" name="apPaterno" id="apPaterno" class="form-control" value="<%=chofer.getNombre() !=null? apPaterno.getNombre(): ""%>">
+                        <input type="text" name="apPaterno" id="apPaterno" class="form-control" value="<%=chofer.getApPaterno() !=null ?chofer.getApPaterno():"" %>">
                         <%
                             if (errores != null && errores.containsKey("apPaterno")){
                                 out.println("<span class='text-danger'>"+ errores.get("apPaterno")+"</span>");
@@ -118,7 +118,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Apellido Materno</label>
-                        <input type="text" name="apMaterno" id="apMaterno" class="form-control" value="<%=chofer.getNombre() !=null? apMaterno.getNombre(): ""%>">
+                        <input type="text" name="apMaterno" id="apMaterno" class="form-control" value="<%=chofer.getApMaterno() !=null ?chofer.getApMaterno():"" %>">
                         <%
                             if (errores != null && errores.containsKey("apMaterno")){
                                 out.println("<span class='text-danger'>"+ errores.get("apMaterno")+"</span>");
@@ -128,7 +128,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Licencia</label>
-                        <input type="text" name="licencia" id="licencia" class="form-control" value="<%=chofer.getNombre() !=null? licencia.getNombre(): ""%>">
+                        <input type="text" name="licencia" id="licencia" class="form-control" value="<%=chofer.getLicencia() !=null ?chofer.getLicencia():"" %>">
                         <%
                             if (errores != null && errores.containsKey("licencia")){
                                 out.println("<span class='text-danger'>"+ errores.get("licencia")+"</span>");
@@ -147,11 +147,21 @@ String disponibilidad = estado == true ? "cheked" : "";
                     </div>
 
                     <div class="form-group">
-                        <label for="">Fecha de Nacimiento</label>
-                        <input type="text" name="fechanacimiento" id="fechanacimiento" class="form-control" value="<%fecha%>">
+                        <label for="">Telefono</label>
+                        <input type="text" value="<%=chofer.getTelefono() !=null ? chofer.getTelefono(): "" %>"  name="telefono" id="telefono" class="form-control">
                         <%
-                            if (errores != null && errores.containsKey("fechanacimiento")){
-                                out.println("<span class='text-danger'>"+ errores.get("fechanacimiento")+"</span>");
+                        if(errores!=null && errores.containsKey("telefono")){
+                        out.println("<span class='text-danger'>"+errores.get("telefono")+"</span>");
+                        }
+                        %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Fecha de Nacimiento</label>
+                        <input type="text" name="fechaNacimiento" id="fechaNacimiento" class="form-control" value="<%fecha%>">
+                        <%
+                            if (errores != null && errores.containsKey("fechaNacimiento")){
+                                out.println("<span class='text-danger'>"+ errores.get("fechaNacimiento")+"</span>");
                             }
                         %>
                     </div>

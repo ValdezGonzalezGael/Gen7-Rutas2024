@@ -41,8 +41,8 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                        aria-haspopup="true" aria-expanded="false">Choferes<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Choferes</a></li>
-                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Chofer</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
+                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
                    </ul>
                </li>
 
@@ -102,7 +102,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                             <tr>
                                 <td><%=ca.getId()%></td>
                                 <td><%=ca.getMatricula()%></td>
-                                <td><%=ca.getTipocamion()%></td>
+                                <td><%=ca.getTipoCamion()%></td>
                                 <td><%=ca.getModelo()%></td>
                                 <td><%=ca.getMarca()%></td>
                                 <td><%=ca.getCapacidad()%></td>

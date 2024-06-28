@@ -52,8 +52,8 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/camiones/lista%>">Lista Camiones</a></li>
-                       <li><a href="<%=request.getContextPath()%>/camiones/alta%>">Alta Camion</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camion</a></li>
                    </ul>
                </li>
 
@@ -62,7 +62,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        aria-haspopup="true" aria-expanded="false">Rutas<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/rutas/alta<%">Alta Ruta</a></li>
+                       <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
                    </ul>
                </li>
            </ul>
@@ -140,10 +140,10 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Fecha de Nacimiento</label>
-                        <input type="text" name="fechanacimiento" id="fechanacimiento" class="form-control" value="${param.fechNacimiento}">
+                        <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" value="${param.fechNacimiento}">
                         <%
-                            if (errores != null && errores.containsKey("fechanacimiento")){
-                                out.println("<span class='text-danger'>"+ errores.get("fechanacimiento")+"</span>");
+                            if (errores != null && errores.containsKey("fechaNacimiento")){
+                                out.println("<span class='text-danger'>"+ errores.get("fechaNacimiento")+"</span>");
                             }
                         %>
                     </div>

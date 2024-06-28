@@ -31,7 +31,7 @@ public class EdicionChoferServlet extends HttpServlet {
         String apMaterno=req.getParameter("apMaterno");
         String licencia=req.getParameter("licencia");
         String telefono=req.getParameter("telefono");
-        String fechaNacimiento=req.getParameter("fechanacimiento");
+        String fechaNacimiento=req.getParameter("fechaNacimiento");
         LocalDate fecha;
         try{
             fecha=LocalDate.parse(fechaNacimiento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

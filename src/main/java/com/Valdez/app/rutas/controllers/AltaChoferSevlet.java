@@ -19,10 +19,9 @@ import java.util.Map;
 
 @WebServlet("/choferes/alta")
 public class AltaChoferSevlet extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         Connection conn = (Connection) req.getAttribute("conn");
         IService<Chofer> service = new ChoferesService(conn);
         String nombre = req.getParameter("nombre");
@@ -30,7 +29,7 @@ public class AltaChoferSevlet extends HttpServlet {
         String apMaterno = req.getParameter("apMaterno");
         String licencia = req.getParameter("licencia");
         String telefono = req.getParameter("telefono");
-        String fechaNacimiento = req.getParameter("fechanacimiento");
+        String fechaNacimiento = req.getParameter("fechaNacimiento");
         LocalDate fecha;
         try {
             fecha = LocalDate.parse(fechaNacimiento,
@@ -64,10 +63,11 @@ public class AltaChoferSevlet extends HttpServlet {
             errores.put("telefono", "el telefono es requerido!");
         }
         if (fechaNacimiento == null || fechaNacimiento.isBlank()){
-            errores.put("fechanacimiento ", "fecha Nacimiento  es requerido!");
+            errores.put("fechaNacimiento ", "fecha Nacimiento  es requerido!");
         }
         if (errores.isEmpty()){
             Chofer chofer = new Chofer();
+            chofer.setId(0L);
             chofer.setNombre(nombre);
             chofer.setApPaterno(apPaterno);
             chofer.setApMaterno(apMaterno);
@@ -80,7 +80,7 @@ public class AltaChoferSevlet extends HttpServlet {
 
         }else {
             req.setAttribute("errores",errores);
-            getServletContext().getRequestDispatcher("/alta/Chofer.jsp")
+            getServletContext().getRequestDispatcher("/altaChofer.jsp")
                     .forward(req,resp);
         }
     }

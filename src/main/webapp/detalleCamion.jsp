@@ -1,13 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="java.util.*" %>
 <%@page import="com.Valdez.app.rutas.models.*" %>
-
+<%@page import="java.time.format.*" %>
 <%
-//recuperamos la lista de choferes que seteamos en el request desde el servlet
-List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
+Camion camiones=(Camion) request.getAttribute("camiones");
+Boolean estado= camiones.getDisponibilidad();
+String disponible = estado != null ? "Disponible" : "No disponible";
 %>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +18,10 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
-
 <nav class="navbar navbar-inverse">
    <div class="container-fluid">
        <!-- Brand and toggle get grouped for better mobile display -->
@@ -72,59 +72,29 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
 </nav>
 
 
+    <div class="container">
 
-   <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <h2>Listado de Choferes</h2>
-        </div>
+        <div class="row">
 
-        <div class="col-6">
-            <a href="<%=request.getContextPath()%>/choferes/alta" class="btn btn-success">Alta Chofer</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>AP. Paterno</th>
-                            <th>AP. Materno</th>
-                            <th>Licencia</th>
-                            <th>Telefono</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <% for(Chofer c: choferes) { %>
-                            <tr>
-                                <td><%=c.getId()%></td>
-                                <td><%=c.getNombre()%></td>
-                                <td><%=c.getApPaterno()%></td>
-                                <td><%=c.getApMaterno()%></td>
-                                <td><%=c.getLicencia()%></td>
-                                <td><%=c.getTelefono()%></td>
-                                <td>
-                                    <a href="<%=request.getContextPath()%>/choferes/detalle?id=<%=c.getId()%>" class="btn btn-success">Detalle</a>
-                                </td>
-                                <td>
-                                    <a href="<%=request.getContextPath()%>/choferes/editar?id=<%=c.getId()%>" class="btn btn-primary">Editar</a>
-                                </td>
-                                <td>
-                                   <a href="<%=request.getContextPath()%>/choferes/eliminar?id=<%=c.getId()%>" class="btn btn-danger">Eliminar</a>
-                              </td>
-                           </tr>
-                         <% } %>
-                    </tbody>
-                </table>
+            <div class="col-12">
+                <div class="card border">
+                    <div class="card-header">
+                        <h3><strong>Detalle de Camion</strong></h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Matricula: </strong><%=camiones.getMatricula() %></li>
+                        <li class="list-group-item"><strong>Tipo Camion: </strong><%=camiones.getTipoCamion() %></li>
+                        <li class="list-group-item"><strong>Modelo: </strong><%=camiones.getModelo() %></li>
+                        <li class="list-group-item"><strong>Marca:</strong><%=camiones.getMarca() %></li>
+                        <li class="list-group-item"><strong>Capacidad:</strong><%=camiones.getCapacidad() %></li>
+                        <li class="list-group-item"><strong>Kilometraje: </strong><%=camiones.getKilometraje() %></li>
+                        <li class="list-group-item"><strong>Disponibilidad</strong><%=camiones.getDisponibilidad() %></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-   </div>
 </body>
 </html>

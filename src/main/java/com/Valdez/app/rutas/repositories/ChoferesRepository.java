@@ -87,7 +87,7 @@ public class ChoferesRepository implements IRepository<Chofer>{
         try(PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setLong(1,id);
             stmt.executeUpdate();
-        }
+        }catch (SQLException e){}
     }
 
     //Mapear, transformar un renglon, fila, registro, row en un objeto de tipo chofer
@@ -104,7 +104,6 @@ public class ChoferesRepository implements IRepository<Chofer>{
         a.setTelefono(rs.getString("TELEFONO"));
         a.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
         a.setDisponibilidad(rs.getBoolean("DISPONIBILIDAD"));
-
         return a;
     }
 }

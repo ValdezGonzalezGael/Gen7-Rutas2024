@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="java.util.*" %>
+<%@page import="com.Valdez.app.rutas.models.enums.*" %>
 
 <%
 Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
@@ -72,7 +73,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>Formulario ALta Camion</h2>
+                <h2>Formulario Alta Camion</h2>
             </div>
         </div>
 
@@ -130,7 +131,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Capacidad</label>
-                        <input type="text" name="capacidad" id="capacidad" class="capacidad" value="${param.capacidad}">
+                        <input type="number" name="capacidad" id="capacidad" class="capacidad" value="${param.capacidad}">
                         <%
                             if (errores != null && errores.containsKey("capacidad")){
                                 out.println("<span class='text-danger'>"+ errores.get("capacidad")+"</span>");
