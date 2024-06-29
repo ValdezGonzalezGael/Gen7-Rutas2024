@@ -18,8 +18,6 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
-
     <style>
            #loadingMessage {
                display: none;
@@ -27,9 +25,6 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                text-align: center;
            }
        </style>
-
-
-
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -137,7 +132,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                 <select name="camion" id="camion" class="form-control">
                     <option value="">seleccionar</option>
                     <% for(Camion c: camiones) { %>
-                            <option value="<%=c.getId()%>"><%=c.getMatricula()%></option>
+                        <option value="<%=c.getId()%>" data-capacidad="<%=c.getCapacidad()%>"><%=c.getMatricula()%></option>
                          <% } %>
                 </select>
             </div>
@@ -163,21 +158,28 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
 
             <div class="form-group">
                 <label for="">Capacidad camion</label>
-               <input type="text" name="capCamion" id="capCamion" class="form-control">
+               <input type="text" name="capCamion" id="capCamion" class="form-control" readonly>
             </div>
 
             <div class="form-group">
                 <button class="btn-success">Iniciar Ruta</button>
             </div>
-
         </div>
      </div>
+     <script>
+        $(document).ready(function () {
+            // Evento change del select #camion
+            $('#camion').change(function () {
+                // Obtener la capacidad seleccionada
+                var capacidad = $(this).find(':selected').data('capacidad');
 
+                // Mostrar la capacidad en el input #capCamion
+                $('#capCamion').val(capacidad);
+            });
+        });
+    </script>
 
     </div>
-
-
-
     <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -232,30 +234,29 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                         </div>
                                     </div>
+
                                     <div id="loadingMessage">
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="sr-only">Cargando...</span>
                                     </div>
                                     <div>Cargando...</div>
                                     </div>
+
                                     <div class="con-md-4 col-md-offset-2">
                                         <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                     </div>
 
-                                      <!-- Incluyendo jQuery, Popper.js y Bootstrap JS -->
-
-                                        <script>
+                                       <script>
                                             function btnGuardarDir() {
-                                                var loadingMessage = document.getElementById('loadingMessage');
-                                                loadingMessage.style.display = 'block';
+                                            var loadingMessage = document.getElementById('loadingMessage');
+                                            loadingMessage.style.display = 'block';
 
-                                                setTimeout(function() {
-                                                    loadingMessage.style.display = 'none';
-                                                    $('#myModal').modal('hide'); // Cerrar el modal después de 6 segundos
-                                                }, 6000); // 6000 milisegundos = 6 segundos
+                                            setTimeout(function() {
+                                            loadingMessage.style.display = 'none';
+                                            $('#myModal').modal('hide'); // Cerrar el modal después de 6 segundos
+                                            }, 6000); // 6000 milisegundos = 6 segundos
                                             }
                                         </script>
-
                             </div>
                         </div>
                     </div>

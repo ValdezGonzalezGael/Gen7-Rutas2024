@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -30,11 +31,14 @@ public class AltaChoferSevlet extends HttpServlet {
         String licencia = req.getParameter("licencia");
         String telefono = req.getParameter("telefono");
         String fechaNacimiento = req.getParameter("fechaNacimiento");
+
         LocalDate fecha;
         try {
-            fecha = LocalDate.parse(fechaNacimiento,
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        }catch (DateTimeParseException e){
+            fecha = LocalDate.parse(fechaNacimiento);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            fecha.format(formatter);
+
+        }catch (DateTimeException e){
             fecha = null;
         }
         String checkbox[];

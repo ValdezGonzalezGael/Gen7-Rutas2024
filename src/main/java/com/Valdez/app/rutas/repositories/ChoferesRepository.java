@@ -35,6 +35,7 @@ public class ChoferesRepository implements IRepository<Chofer>{
             try(ResultSet rs= stmt.executeQuery()){
                 if(rs.next()){
                     chofer=this.getChofer(rs);
+                    System.out.println(this.getChofer(rs));
                 }
             }
         }
@@ -53,7 +54,7 @@ public class ChoferesRepository implements IRepository<Chofer>{
             sql = "insert into choferes(id_chofer, nombre," +
                     "ap_paterno, ap_materno, licencia, telefono, " +
                     "fecha_nacimiento, disponibilidad) " +
-                    "values(-1,?,?,?,?,?,?,?)";
+                    "values(sequence1.nextval,?,?,?,?,?,?,?)";
         }
         try (PreparedStatement stm = conn.prepareStatement(sql)){
             if(chofer.getId() != 0 && chofer.getId()>0){
@@ -86,6 +87,7 @@ public class ChoferesRepository implements IRepository<Chofer>{
         String sql = "delete from choferes where id_chofe=?";
         try(PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setLong(1,id);
+            System.out.println("ELIMINADO");
             stmt.executeUpdate();
         }catch (SQLException e){}
     }

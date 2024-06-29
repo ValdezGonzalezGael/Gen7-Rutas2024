@@ -100,8 +100,13 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                     </div>
 
                     <div class="form-group">
-                        <label for="">Tipo Camion</label>
-                        <input type="text" name="tipo_camion" id="tipo_camion" class="form-control" value="${param.tipo_camion}">
+                        <label for="tipo_camion">Tipo Camion</label>
+                        <select name="tipo_camion" id="tipo_camion" class="form-control">
+                            <option class="">Selecciona un tipo de camion</option>
+                            <% for(Tipos t : Tipos.values()){ %>
+                                <option value="<%= t %>"><%= t %></option>
+                            <% } %>
+                        </select>
                         <%
                             if (errores != null && errores.containsKey("tipo_camion")){
                                 out.println("<span class='text-danger'>"+ errores.get("tipo_camion")+"</span>");
@@ -119,15 +124,21 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                         %>
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Marca</label>
-                        <input type="text" name="marca" id="marca" class="form-control" value="${param.marca}">
-                        <%
-                            if (errores != null && errores.containsKey("marca")){
-                                out.println("<span class='text-danger'>"+ errores.get("marca")+"</span>");
-                            }
-                        %>
-                    </div>
+
+            <div class="form-group">
+                <label for="marca">Marca</label>
+                <select name="marca_camion" id="marca_camion" class="form-control">
+                <option class="">Selecciona una marca de camion</option>
+                 <% for(Marcas m : Marcas.values()){ %>
+                 <option value="<%= m %>"><%= m %></option>
+                  <% } %>
+                  </select>
+                  <%
+                  if (errores != null && errores.containsKey("marca_camion")){
+                    out.println("<span class='text-danger'>"+ errores.get("marca_camion")+"</span>");
+                      }
+                  %>
+            </div>
 
                     <div class="form-group">
                         <label for="">Capacidad</label>
@@ -141,7 +152,7 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
 
                     <div class="form-group">
                         <label for="">Kilometraje</label>
-                        <input type="text" name="kilometraje" id="kilometraje" class="form-control" value="${param.kilometraje}">
+                        <input type="number" name="kilometraje" id="kilometraje" class="form-control" value="${param.kilometraje}">
                         <%
                             if (errores != null && errores.containsKey("kilometraje")){
                                 out.println("<span class='text-danger'>"+ errores.get("kilometraje")+"</span>");

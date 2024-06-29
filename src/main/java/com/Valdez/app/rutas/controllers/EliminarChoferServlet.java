@@ -23,12 +23,11 @@ public class EliminarChoferServlet extends HttpServlet {
         try {
             id = Long.parseLong(req.getParameter("id"));
         } catch (NumberFormatException ex) {
-            id = 0L;
+            id = 0l;
         }
-        Chofer chofer = new Chofer();
         if (id > 0) {
-            Optional<Chofer> optionalDriver = service.getById(id);
-            if (optionalDriver.isPresent()) {
+            Optional<Chofer> optionalChofer = service.getById(id);
+            if (optionalChofer.isPresent()) {
                 service.eliminar(id);
                 resp.sendRedirect(req.getContextPath()+ "/choferes/lista");
             } else {

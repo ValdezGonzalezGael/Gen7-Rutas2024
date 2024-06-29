@@ -5,11 +5,10 @@
 
 <%
 Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
-Chofer Chofer = (Chofer) request.getAttribute("chofer");
-String fecha = chofer.getFechaNacimiento() != null ? chofer.getFechaNacimiento()
-.format(DateTimeFormmatter.ofPattern("dd/MM/yyyy")): null;
+Chofer chofer = (Chofer) request.getAttribute("chofer");
+String fecha = chofer.getFechaNacimiento() != null ? chofer.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")): null;
 Boolean estado = chofer.getDisponibilidad();
-String disponibilidad = estado == true ? "cheked" : "";
+String disponible = estado == true ? "cheked" : "";
 %>
 
 <!DOCTYPE html>
@@ -138,7 +137,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Telefono</label>
-                        <input type="text" name="telefono" id="telefono" class="form-control" value="<%=chofer.getNombre() !=null? telefono.getNombre(): ""%>">
+                        <input type="text" name="telefono" id="telefono" class="form-control" value="<%=chofer.getNombre() !=null? chofer.getTelefono(): ""%>">
                         <%
                             if (errores != null && errores.containsKey("telefono")){
                                 out.println("<span class='text-danger'>"+ errores.get("telefono")+"</span>");
@@ -158,7 +157,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Fecha de Nacimiento</label>
-                        <input type="text" name="fechaNacimiento" id="fechaNacimiento" class="form-control" value="<%fecha%>">
+                        <input type="text" name="fechaNacimiento" id="fechaNacimiento" class="form-control" value="<%=fecha %>">
                         <%
                             if (errores != null && errores.containsKey("fechaNacimiento")){
                                 out.println("<span class='text-danger'>"+ errores.get("fechaNacimiento")+"</span>");
@@ -168,8 +167,7 @@ String disponibilidad = estado == true ? "cheked" : "";
 
                     <div class="form-group">
                         <label for="">Disponibilidad</label>
-                        <input type="checkbox" name="disponibilidad" id="disponibilidad"
-                                class="form-check-input" value="1"   <%=disponible%>>
+                        <input type="checkbox" name="disponibilidad" id="disponibilidad" class="form-check-input" value="1"   <%= disponible %>>
                     </div>
 
                     <div class="form-group">

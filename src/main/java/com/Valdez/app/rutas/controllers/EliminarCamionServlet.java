@@ -29,7 +29,7 @@ public class EliminarCamionServlet {
             Optional<Camion> o =service.getById(id);
             if(o.isPresent()){
                 service.eliminar(id);
-                resp.sendRedirect(req.getContextPath()+"/camiones/listar");
+                resp.sendRedirect(req.getContextPath()+"/camiones/lista");
             }
             else{
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND,"No existe en Camion de la base de datos ss");
