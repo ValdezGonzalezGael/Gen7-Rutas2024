@@ -1,18 +1,16 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@page import="java.util.*" %>
-<%@page import="com.Valdez.app.rutas.models.*" %>
-<%@page import="java.time.format.*" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.*" %>
+
 <%
-Camion camiones=(Camion) request.getAttribute("camiones");
-Boolean estado= camiones.getDisponibilidad();
-String disponible = estado != null ? "Disponible" : "No disponible";
+    Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
 %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Alta Cargamento</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -22,6 +20,7 @@ String disponible = estado != null ? "Disponible" : "No disponible";
 
 </head>
 <body>
+
 <nav class="navbar navbar-inverse">
    <div class="container-fluid">
        <!-- Brand and toggle get grouped for better mobile display -->
@@ -40,11 +39,11 @@ String disponible = estado != null ? "Disponible" : "No disponible";
            <ul class="nav navbar-nav">
                <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-haspopup="true" aria-expanded="false">Choferes<span
+                       aria-haspopup="true" aria-expanded="false">Camiones<span
                            class="caret"></span></a>
                    <ul class="dropdown-menu">
-                       <li><a href="<%=request.getContextPath()%>/choferes/lista">Lista Choferes</a></li>
-                       <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Chofer</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/lista">Lista Camiones</a></li>
+                       <li><a href="<%=request.getContextPath()%>/camiones/alta">Alta Camiones</a></li>
                    </ul>
                </li>
 
@@ -80,31 +79,47 @@ String disponible = estado != null ? "Disponible" : "No disponible";
        </div><!-- /.navbar-collapse -->
    </div><!-- /.container-fluid -->
 </nav>
+<div class="container">
+    <h2>Formulario Alta Cargamento</h2>
+    <% if (errores != null && errores.size() > 0) { %>
+        <ul class="alert alert-danger">
+            <% for (String error : errores.values()) { %>
+                <li><%= error %></li>
+            <% } %>
+        </ul>
+    <% } %>
 
-
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-12">
-                <div class="card border">
-                    <div class="card-header">
-                        <h3><strong>Detalle de Camion</strong></h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item"><strong>Matricula: </strong><%=camiones.getMatricula() %></li>
-                        <li class="list-group-item"><strong>Tipo Camion: </strong><%=camiones.getTipoCamion() %></li>
-                        <li class="list-group-item"><strong>Modelo: </strong><%=camiones.getModelo() %></li>
-                        <li class="list-group-item"><strong>Marca:</strong><%=camiones.getMarca() %></li>
-                        <li class="list-group-item"><strong>Capacidad:</strong><%=camiones.getCapacidad() %></li>
-                        <li class="list-group-item"><strong>Kilometraje: </strong><%=camiones.getKilometraje() %></li>
-                        <li class="list-group-item"><strong>Disponibilidad</strong><%=camiones.getDisponibilidad() %></li>
-                    </ul>
-                </div>
-            </div>
+    <form action="<%= request.getContextPath() %>/cargamentos/alta" method="post">
+        <div class="form-group">
+            <label for="rutaId">ID Ruta</label>
+            <input type="text" name="rutaId" id="rutaId" class="form-control" value="<%= request.getAttribute("rutaId") != null ? request.getAttribute("rutaId") : "" %>">
+            <% if (errores != null && errores.containsKey("rutaId")) { %>
+                <span class="text-danger"><%= errores.get("rutaId") %></span>
+            <% } %>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" name="descripcion" id="descripcion" class="form-control" value="<%= request.getAttribute("descripcion") != null ? request.getAttribute("descripcion") : "" %>">
+            <% if (errores != null && errores.containsKey("descripcion")) { %>
+                <span class="text-danger"><%= errores.get("descripcion") %></span>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <label for="peso">Peso</label>
+            <input type="text" name="peso" id="peso" class="form-control" value="<%= request.getAttribute("peso") != null ? request.getAttribute("peso") : "" %>">
+            <% if (errores != null && errores.containsKey("peso")) { %>
+                <span class="text-danger"><%= errores.get("peso") %></span>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <label for="estatus">Estatus</label>
+            <input type="text" name="estatus" id="estatus" class="form-control" value="<%= request.getAttribute("estatus") != null ? request.getAttribute("estatus") : "" %>">
+            <% if (errores != null && errores.containsKey("estatus")) { %>
+                <span class="text-danger"><%= errores.get("estatus") %></span>
+            <% } %>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
 </body>
 </html>

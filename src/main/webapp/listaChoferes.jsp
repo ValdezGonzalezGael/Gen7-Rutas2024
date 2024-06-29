@@ -66,6 +66,16 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
                        <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
                    </ul>
                </li>
+
+               <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Cargamento<span
+                           class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/alta">Alta Cargamentos</a></li>
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/lista">Lista Cargamentos</a></li>
+                   </ul>
+               </li>
            </ul>
        </div><!-- /.navbar-collapse -->
    </div><!-- /.container-fluid -->
@@ -94,7 +104,6 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
                             <th>AP. Materno</th>
                             <th>Licencia</th>
                             <th>Telefono</th>
-
                         </tr>
                     </thead>
 

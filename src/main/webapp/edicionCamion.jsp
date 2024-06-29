@@ -9,6 +9,7 @@ Camion camion = (Camion) request.getAttribute("camion");
 Boolean estado = camion.getDisponibilidad();
 String disponible = estado != null ? "checked" : "";
 Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
+List<Integer> listaAnios = (List<Integer>) request.getAttribute("modelos");
 %>
 
 <!DOCTYPE html>
@@ -70,6 +71,16 @@ Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
                        <li><a href="<%=request.getContextPath()%>/choferes/alta">Alta Ruta</a></li>
                    </ul>
                </li>
+
+               <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Cargamento<span
+                           class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/alta">Alta Cargamentos</a></li>
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/lista">Lista Cargamentos</a></li>
+                   </ul>
+               </li>
            </ul>
        </div><!-- /.navbar-collapse -->
    </div><!-- /.container-fluid -->
@@ -92,71 +103,93 @@ Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
         <div class="row">
             <form action="<%=request.getContextPath()%>/camiones/editar" method="post">
 
-                 <input type="hidden" value="<%=camion.getId() %>"  name="id" id="id">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="">Matricula</label>
-                        <input type="text" value="<%=camion.getMatricula() !=null ?camion.getMatricula():"" %>"  name="matricula" id="matricula" class="form-control">
-
-                        <%
-                        if(errores!=null && errores.containsKey("matricula")){
-                            out.println("<span class='text-danger'>"+errores.get("matricula")+"</span>");
-                        }
-                        %>
-                    </div>
-
+                <input type="hidden" value="<%=camion.getId() %>"  name="id" id="id">
+                    <div class="col-md-12">
                         <div class="form-group">
-                             <label for="marca">Marca</label>
-                             <select name="marca_camion" id="marca_camion" class="form-control">
-                             <option class="">Selecciona una marca de camion</option>
-                              <% for(Marcas m : Marcas.values()){ %>
-                              <option value="<%= m %>"><%= m %></option>
-                               <% } %>
-                               </select>
-                               <%
-                               if (errores != null && errores.containsKey("marca_camion")){
-                                 out.println("<span class='text-danger'>"+ errores.get("marca_camion")+"</span>");
-                                   }
-                               %>
+                            <label for="">Matricula</label>
+                            <input type="text" name="matricula" id="matricula" class="form-control" value="<%=camion.getMatricula() != null ? camion.getMatricula() : ""%>">
+                            <%
+                                if (errores != null && errores.containsKey("matricula")){
+                                    out.println("<span class='text-danger'>"+ errores.get("matricula")+"</span>");
+                                }
+                            %>
                         </div>
 
-                    <div class="form-group">
-                        <label for="">Modelo</label>
-                        <select class="form-select" name="modelo" id="modelo">
-                        <% for(int i = 2000; i <= 2024; i++) { %>
-                          <option value="<%= i %>"><%= i %></option>
-                             <option value="<%= i %>" <%= camion.getModelo() != null && camion.getModelo().equals(i) ? "selected" : "" %>><%= i %></option>
-                        <% } %>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="tipoCamion">Tipo Camion</label>
+                            <select name="tipoCamion" id="tipoCamion" class="form-control">
+                                <option class="">Selecciona un tipo de camion</option>
+                                <% for(Tipos t : Tipos.values()){ %>
+                                 <option value="<%= t %>"<%= t.equals(camion.getTipoCamion()) ? "selected" : ""%>><%= t %></option>
+                                <% } %>
+                            </select>
+                            <%
+                                if (errores != null && errores.containsKey("tipoCamion")){
+                                    out.println("<span class='text-danger'>"+ errores.get("tipoCamion")+"</span>");
+                                }
+                            %>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="">Capacidad</label>
-                        <input type="text" value="<%=camion.getCapacidad() !=null ? camion.getCapacidad(): "" %>"  name="capacidad" id="capacidad" class="form-control">
-                        <%
-                        if(errores!=null && errores.containsKey("capacidad")){
-                            out.println("<span class='text-danger'>"+errores.get("capacidad")+"</span>");
-                        }
-                        %>
-                    </div>
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <select name="marca" id="marca" class="form-control">
+                            <option class="">Selecciona una marca de camion</option>
+                             <% for(Marcas m : Marcas.values()){ %>
+                                <option value="<%= m %>"<%= m.equals(camion.getMarca()) ? "selected" : ""%>><%= m %></option>
+                             <% } %>
+                              </select>
+                              <%
+                              if (errores != null && errores.containsKey("marca")){
+                                out.println("<span class='text-danger'>"+ errores.get("marca")+"</span>");
+                                  }
+                              %>
 
+                        <div class="form-group">
+                            <label for="modelo">Modelo</label>
+                                <select name="modelo" id="modelo" class="form-control">
 
-                    <div class="form-group">
-                        <label for="">Kilometraje</label>
-                        <input type="text" value="<%=camion.getKilometraje() %>"  name="kilometraje" id="kilometraje" class="form-control">
-                        <%
-                        if(errores!=null && errores.containsKey("kilometraje")){
-                            out.println("<span class='text-danger'>"+errores.get("kilometraje")+"</span>");
-                        }
-                        %>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Disponibilidad</label>
-                        <input type="checkbox"  value="1" name="disponibilidad" id="disponibilidad" class="form-check-input"  <%= disponible %> >
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                    </div>
+                                    <%
+                                        List<Integer> modelos = (List<Integer>) request.getAttribute("modelos");
+                                        if (modelos != null) {
+                                            for (Integer modelo : modelos ) {
+                                    %>
+                                      <option value="<%= modelo %>"<%= modelo.equals(camion.getModelo()) ? "selected" : ""%>><%= modelo %></option>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                </select>
+                            </div>
+                         </div>
+
+                        <div class="form-group">
+                            <label for="">Capacidad</label>
+                            <input type="number" name="capacidad" id="capacidad" class="capacidad" value="<%=camion.getCapacidad() != null ? camion.getCapacidad() : ""%>">
+                            <%
+                                if (errores != null && errores.containsKey("capacidad")){
+                                    out.println("<span class='text-danger'>"+ errores.get("capacidad")+"</span>");
+                                }
+                            %>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Kilometraje</label>
+                            <input type="number" name="kilometraje" id="kilometraje" class="form-control" value= "<%=camion.getKilometraje() != null ? camion.getKilometraje() : ""%>">
+                            <%
+                                if (errores != null && errores.containsKey("kilometraje")){
+                                    out.println("<span class='text-danger'>"+ errores.get("kilometraje")+"</span>");
+                                }
+                            %>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Disponibilidad</label>
+                            <input type="checkbox" name="disponibilidad" id="disponibilidad" class="form-check-input" value="1" <%= disponible%>>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
                 </div>
             </form>
         </div>

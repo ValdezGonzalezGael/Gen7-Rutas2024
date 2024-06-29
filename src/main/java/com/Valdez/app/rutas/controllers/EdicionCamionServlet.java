@@ -13,21 +13,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @WebServlet("/camiones/editar")
 public class EdicionCamionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Connection conn=(Connection) req.getAttribute("conn");
         IService<Camion> service=new CamionesService(conn);
         String matricula=req.getParameter("matricula");
-        String tipoCamion=req.getParameter("tipoCamion");
-        String modelo=req.getParameter("modelo");
-        String marca=req.getParameter("marca");
+        String tipoCamion= req.getParameter("tipoCamion");
+        String modelo= req.getParameter("modelo");
+        String marca= req.getParameter("marca");
         String capacidad=req.getParameter("capacidad");
         String kilometraje=req.getParameter("kilometraje");
 
@@ -42,35 +39,34 @@ public class EdicionCamionServlet extends HttpServlet {
         }
         Map<String,String> errores=new HashMap<>();
         if(matricula==null|| matricula.isBlank()){
-            errores.put("matricula","el matricula es requerido!");
+            errores.put("matricula","La matricula es requerida!");
         }
-        if(tipoCamion==null|| tipoCamion.isBlank()){
-            errores.put("tipocamion","el tipo de camion es requerido!");
+        if(tipoCamion==null|| tipoCamion.equals("")){
+            errores.put("tipoCamion","el tipo de camion es requerido!");
         }
-        if(marca==null|| marca.isBlank()){
-            errores.put("marca","la marcao es requerido!");
+        if(modelo==null|| modelo.equals("")){
+            errores.put("modelo","el modelo es requerido!");
+        }
+        if(marca==null|| marca.equals("")){
+            errores.put("marca","La marca es requerida!");
+        }
+        if(kilometraje==null|| kilometraje.isBlank()){
+            errores.put("kilometraje","El kilometraje es requerido!");
         }
         if(capacidad==null|| capacidad.isBlank()){
             errores.put("capacidad","La capacidad es requerida!");
         }
-        if(kilometraje==null|| kilometraje.isBlank()){
-            errores.put("kilometrake","el kilometraje es requerida!");
-        }
 
-        long id;
-        id=Long.parseLong(req.getParameter("id"));
-        Camion camion=new Camion();
-        camion.setId(id);
-        camion.setMatricula(String.valueOf(matricula));
-        camion.setMarca(Marcas.valueOf(marca
-        ));
-        camion.setKilometraje(Float.valueOf(kilometraje));
-        camion.setCapacidad(Integer.valueOf(capacidad));
-        camion.setModelo(Integer.valueOf(modelo));
-        camion.setTipoCamion(Tipos.valueOf(tipoCamion));
-        camion.setDisponibilidad(habilitar);
         if(errores.isEmpty()){
-
+            Camion camion=new Camion();
+            camion.setId(0L);
+            camion.setMatricula(matricula);
+            camion.setMarca(Marcas.valueOf(String.valueOf(marca)));
+            camion.setKilometraje(Float.valueOf(kilometraje));
+            camion.setCapacidad(Integer.valueOf(capacidad));
+            camion.setModelo(Integer.valueOf(modelo));
+            camion.setTipoCamion(Tipos.valueOf(String.valueOf(tipoCamion)));
+            camion.setDisponibilidad(habilitar);
             service.guardar(camion);
             resp.sendRedirect(req.getContextPath()+"/camiones/lista");
 
@@ -79,35 +75,35 @@ public class EdicionCamionServlet extends HttpServlet {
             req.setAttribute("errores",errores);
             getServletContext().getRequestDispatcher("/edicionCamion.jsp").forward(req,resp);
         }
-
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn= (Connection) req.getAttribute("conn");
-        IService<Camion> service= new CamionesService(conn);
-        long id;
-        try{
-            id=Long.parseLong(req.getParameter("id"));
+        Connection conn = (Connection) req.getAttribute("conn");
 
-        }catch (NumberFormatException e){
-            id=0L;
-        }
-        Camion camion=new Camion();
-        if(id>0){
-            Optional<Camion> o =service.getById(id);
-            if(o.isPresent()){
-                camion=o.get();
-                req.setAttribute("camion",camion);
-                getServletContext().getRequestDispatcher("/edicionCamion.jsp").forward(req,resp);
-            }
-            else{
-                resp.sendError(HttpServletResponse.SC_NOT_FOUND,"No existe en camion de la base de datos");
-            }
+        // Lista de tipos y marcas
+        Tipos[] arrayCamiones = Tipos.values();
+        Marcas[] arrayMarcas = Marcas.values();
+        req.setAttribute("tipos", arrayCamiones);
+        req.setAttribute("marcas", arrayMarcas);
 
+        int anioActual = Calendar.getInstance().get(Calendar.YEAR);
+        List<Integer> listaAnios = new ArrayList<>();
+        for (int i = anioActual - 20; i <= anioActual; i++) {
+            listaAnios.add(i);
         }
-        else{
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND,"El id es null, se debe enviar como parametro en la url");
+        req.setAttribute("modelos", listaAnios);
 
+        IService<Camion> service = new CamionesService(conn);
+        Long id = Long.parseLong(req.getParameter("id"));
+        Optional<Camion> optionalCamion = service.getById(id);
+
+        if (optionalCamion == null) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Camión no encontrado");
+            return;
         }
-}}
+        Camion camion = optionalCamion.get();
+        req.setAttribute("camion", camion);
+        getServletContext().getRequestDispatcher("/edicionCamion.jsp").forward(req, resp);
+    }
+}

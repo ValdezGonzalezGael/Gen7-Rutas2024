@@ -50,38 +50,38 @@ public class CamionesRepository implements IRepository<Camion>{
     @Override
     public void guardar(Camion camion) throws SQLException {
         String sql="";
-        if (camion.getId() !=0 && camion.getId() > 0 ){
-            sql = "update camion set matricula=?, tipo_camion=?, " +
+        if (camion.getId() != null && camion.getId() >0) {
+            sql = "update camiones set matricula =?, tipo_camion=?, " +
                     "modelo=?, marca=?, capacidad=?, " +
-                    "kilometraje=?, disponoibilidad=? " +
-                    "where id_camion?";
-        } else {
-            sql = "insert into camion(id_camion, matricula," +
-                    "tipo_camion, modelo, marca, capacidad, " +
-                    "kilometraje, disponibilidad) " +
-                    "values(-1,?,?,?,?,?,?,?)";
+                    "kilometraje=?, disponibilidad=? " +
+                    " where id_camion=?";
+        }else{
+            sql = "insert into camiones(id_camion, matricula, "+
+                    "tipo_camion, modelo, marca, capacidad, "+
+                    "kilometraje, disponibilidad) "+
+                    "values (-1,?,?,?,?,?,?,?)";
         }
-        try (PreparedStatement stm = conn.prepareStatement(sql)){
-            if(camion.getId() != 0 && camion.getId()>0){
-                stm.setString(1, camion.getMatricula());
-                stm.setString(2, String.valueOf(camion.getTipoCamion()));
-                stm.setInt(3, camion.getModelo());
-                stm.setString(4, String.valueOf(camion.getMarca()));
-                stm.setInt(5, camion.getCapacidad());
-                stm.setFloat(5,camion.getKilometraje());
-                stm.setInt(7, camion.getDisponibilidad() ? 1 : 0);
-                stm.setLong(8, camion.getId());
-            }else {
-                stm.setString(1, camion.getMatricula());
-                stm.setString(2, String.valueOf(camion.getTipoCamion()));
-                stm.setInt(3, camion.getModelo());
-                stm.setString(4, String.valueOf(camion.getMarca()));
-                stm.setInt(5, camion.getCapacidad());
-                stm.setFloat(5,camion.getKilometraje());
-//                operador ternario
-                stm.setInt(7, camion.getDisponibilidad()? 1 : 0);
+        try(PreparedStatement stmt = conn.prepareStatement(sql)){
+            if (camion.getId() != null && camion.getId() >0){
+                stmt.setString(1, camion.getMatricula());
+                stmt.setString(2, camion.getTipoCamion().toString().toUpperCase());
+                stmt.setInt(3, camion.getModelo());
+                stmt.setString(4,camion.getMarca().toString().toUpperCase());
+                stmt.setInt(5,camion.getCapacidad());
+                stmt.setFloat(6,camion.getKilometraje().floatValue());
+                stmt.setInt(7, camion.getDisponibilidad() ? 1 : 0);
+                stmt.setLong(8, camion.getId());
+
+            }else{
+                stmt.setString(1, camion.getMatricula());
+                stmt.setString(2, camion.getTipoCamion().toString().toUpperCase());
+                stmt.setInt(3, camion.getModelo());
+                stmt.setString(4,camion.getMarca().toString().toUpperCase());
+                stmt.setInt(5,camion.getCapacidad());
+                stmt.setFloat(6,camion.getKilometraje().floatValue());
+                stmt.setInt(7, camion.getDisponibilidad() ? 1 : 0);
             }
-            stm.executeUpdate();
+            stmt.executeUpdate();
         }catch (SQLException e){ System.out.println("ERROR:"+e);  }
     }
 

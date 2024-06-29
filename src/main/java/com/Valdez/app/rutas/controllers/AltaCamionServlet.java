@@ -26,7 +26,7 @@ public class AltaCamionServlet extends HttpServlet {
         for (int i = anioActual - 20; i <= anioActual + 1; i++) {
             listaAnios.add(i);
         }
-        req.setAttribute("anios", listaAnios);
+        req.setAttribute("modelos", listaAnios);
         //Envio de los enums
         Tipos[] arrayCamiones = Tipos.values();
         Marcas[] arrayMarcas = Marcas.values();
@@ -40,9 +40,9 @@ public class AltaCamionServlet extends HttpServlet {
         Connection conn=(Connection) req.getAttribute("conn");
         IService<Camion> service=new CamionesService(conn);
         String matricula=req.getParameter("matricula");
-        String tipoCamion=req.getParameter("tipoCamion");
-        String modelo=req.getParameter("modelo");
-        String marca=req.getParameter("marca");
+        String tipoCamion= req.getParameter("tipoCamion");
+        String modelo= req.getParameter("modelo");
+        String marca= req.getParameter("marca");
         String capacidad=req.getParameter("capacidad");
         String kilometraje=req.getParameter("kilometraje");
 
@@ -59,13 +59,13 @@ public class AltaCamionServlet extends HttpServlet {
         if(matricula==null|| matricula.isBlank()){
             errores.put("matricula","La matricula es requerida!");
         }
-        if(tipoCamion==null|| tipoCamion.isBlank()){
+        if(tipoCamion==null|| tipoCamion.equals("")){
             errores.put("tipoCamion","el tipo de camion es requerido!");
         }
-        if(modelo==null|| modelo.isBlank()){
+        if(modelo==null|| modelo.equals("")){
             errores.put("modelo","el modelo es requerido!");
         }
-        if(marca==null|| marca.isBlank()){
+        if(marca==null|| marca.equals("")){
             errores.put("marca","La marca es requerida!");
         }
         if(kilometraje==null|| kilometraje.isBlank()){
@@ -79,11 +79,11 @@ public class AltaCamionServlet extends HttpServlet {
             Camion camion=new Camion();
             camion.setId(0L);
             camion.setMatricula(matricula);
-            camion.setMarca(Marcas.valueOf(marca));
+            camion.setMarca(Marcas.valueOf(String.valueOf(marca)));
             camion.setKilometraje(Float.valueOf(kilometraje));
             camion.setCapacidad(Integer.valueOf(capacidad));
             camion.setModelo(Integer.valueOf(modelo));
-            camion.setTipoCamion(Tipos.valueOf(tipoCamion));
+            camion.setTipoCamion(Tipos.valueOf(String.valueOf(tipoCamion)));
             camion.setDisponibilidad(habilitar);
             service.guardar(camion);
             resp.sendRedirect(req.getContextPath()+"/camiones/lista");

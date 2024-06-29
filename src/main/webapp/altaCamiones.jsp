@@ -12,7 +12,6 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -66,7 +65,18 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                        <li><a href="<%=request.getContextPath()%>/rutas/alta">Alta Ruta</a></li>
                    </ul>
                </li>
+
+               <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Cargamento<span
+                           class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/alta">Alta Cargamentos</a></li>
+                       <li><a href="<%=request.getContextPath()%>/cargamentos/lista">Lista Cargamentos</a></li>
+                   </ul>
+               </li>
            </ul>
+
        </div><!-- /.navbar-collapse -->
    </div><!-- /.container-fluid -->
 </nav>
@@ -100,51 +110,51 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                     </div>
 
                     <div class="form-group">
-                        <label for="tipo_camion">Tipo Camion</label>
-                        <select name="tipo_camion" id="tipo_camion" class="form-control">
+                        <label for="tipoCamion">Tipo Camion</label>
+                        <select name="tipoCamion" id="tipoCamion" class="form-control">
                             <option class="">Selecciona un tipo de camion</option>
                             <% for(Tipos t : Tipos.values()){ %>
                                 <option value="<%= t %>"><%= t %></option>
                             <% } %>
                         </select>
                         <%
-                            if (errores != null && errores.containsKey("tipo_camion")){
-                                out.println("<span class='text-danger'>"+ errores.get("tipo_camion")+"</span>");
+                            if (errores != null && errores.containsKey("tipoCamion")){
+                                out.println("<span class='text-danger'>"+ errores.get("tipoCamion")+"</span>");
                             }
                         %>
                     </div>
 
-            <div class="form-group">
-                <label for="marca">Marca</label>
-                <select name="marca_camion" id="marca_camion" class="form-control">
-                <option class="">Selecciona una marca de camion</option>
-                 <% for(Marcas m : Marcas.values()){ %>
-                 <option value="<%= m %>"><%= m %></option>
-                  <% } %>
-                  </select>
-                  <%
-                  if (errores != null && errores.containsKey("marca_camion")){
-                    out.println("<span class='text-danger'>"+ errores.get("marca_camion")+"</span>");
-                      }
-                  %>
+                    <div class="form-group">
+                        <label for="marca">Marca</label>
+                        <select name="marca" id="marca" class="form-control">
+                        <option class="">Selecciona una marca de camion</option>
+                         <% for(Marcas m : Marcas.values()){ %>
+                         <option value="<%= m %>"><%= m %></option>
+                          <% } %>
+                          </select>
+                          <%
+                          if (errores != null && errores.containsKey("marca")){
+                            out.println("<span class='text-danger'>"+ errores.get("marca")+"</span>");
+                              }
+                          %>
 
-             <div class="form-group">
-                 <label for="anio">Modelo</label>
-                 <select name="anio" id="anio" class="form-control">
-                     <%
-                         List<Integer> anios = (List<Integer>) request.getAttribute("anios");
-                         if (anios != null) {
-                             for (Integer anio : anios) {
-                     %>
-                                 <option value="<%= anio %>"><%= anio %></option>
-                     <%
-                             }
-                         }
-                     %>
-                 </select>
-             </div>
+                    <div class="form-group">
+                        <label for="modelo">Modelo</label>
+                            <select name="modelo" id="modelo" class="form-control">
+                                <%
+                                    List<Integer> modelos = (List<Integer>) request.getAttribute("modelos");
+                                    if (modelos != null) {
+                                        for (Integer modelo : modelos) {
+                                %>
+                                            <option value="<%= modelo %>"><%= modelo %></option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
+                        </div>
 
-             </div>
+                     </div>
 
                     <div class="form-group">
                         <label for="">Capacidad</label>
