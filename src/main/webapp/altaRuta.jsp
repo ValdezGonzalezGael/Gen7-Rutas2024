@@ -126,7 +126,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
 
                 <div class="form-group">
                     <label for="">Fecha Salida</label>
-                   <input type="text" name="FSalida" id="FSalida" class="form-control">
+                   <input type="datetime-local" name="FSalida" id="FSalida" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -163,7 +163,7 @@ List<Camion> camiones= (List<Camion>)request.getAttribute("camiones");
 
             <div class="form-group">
                 <label for="">Fecha Estimada de Llegada</label>
-               <input type="text" name="FELlegada" id="FELlegada" class="form-control">
+               <input type="datetime-local" name="FELlegada" id="FELlegada" class="form-control">
             </div>
 
             <div class="form-group">
