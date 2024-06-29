@@ -1,19 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@page import="java.util.*" %>
-<%@page import="com.piedra.rutas.models.*" %>
+<%@page import="com.Valdez.app.rutas.models.*" %>
 <%@page import="java.time.format.*" %>
 <%@page import="com.Valdez.app.rutas.models.enums.*" %>
 <%
 
-Camion camion=(Camion) request.getAttribute("camion");
-Boolean estado= camion.getDisponibilidad();
+Camion camion = (Camion) request.getAttribute("camion");
+Boolean estado = camion.getDisponibilidad();
 String disponible = estado != null ? "checked" : "";
 Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
-
-   List<Marcas> marcas= new ArrayList<>(Arrays.asList(Marcas.VOLVO,Marcas.ALLIANCE,Marcas.FORD,Marcas.MERCEDES_BENZ,Marcas.DINA,Marcas.BMW));
- List<Tipos> tipos= new ArrayList<>(Arrays.asList(Tipos.TRAILER,Tipos.TORTON,Tipos.DOBLE_REMOLQUE,Tipos.VOLTEO,Tipos.SEMI_REMOLQUE));
-
-    %>
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,32 +104,21 @@ Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
                         }
                         %>
                     </div>
+
                         <div class="form-group">
-                            <label for="">Marca</label>
-                            <select class="form-select" name="marca" id="marca">
-                             <% for (int i = 0; i < marcas.size(); i++) { %>
-                               <option value="<%= marcas.get(i) %>" <%= camion.getMarca() != null && camion.getMarca().equals(marcas.get(i)) ? "selected" : "" %>><%= marcas.get(i) %></option>
-                              <% } %>
-                             </select>
-                            <%
-                            if(errores!=null && errores.containsKey("marca")){
-                                out.println("<span class='text-danger'>"+errores.get("marca")+"</span>");
-                            }
-                            %>
+                             <label for="marca">Marca</label>
+                             <select name="marca_camion" id="marca_camion" class="form-control">
+                             <option class="">Selecciona una marca de camion</option>
+                              <% for(Marcas m : Marcas.values()){ %>
+                              <option value="<%= m %>"><%= m %></option>
+                               <% } %>
+                               </select>
+                               <%
+                               if (errores != null && errores.containsKey("marca_camion")){
+                                 out.println("<span class='text-danger'>"+ errores.get("marca_camion")+"</span>");
+                                   }
+                               %>
                         </div>
-                    <div class="form-group">
-                        <label for="">Tipo Camion</label>
-                        <select class="form-select" name="tipoCamion" id="tipoCamion">
-                         <% for (int i = 0; i < tipos.size(); i++) { %>
-                           <option value="<%= tipos.get(i) %>" <%= camion.getTipocamion() != null && camion.getTipocamion().equals(tipos.get(i)) ? "selected" : "" %>><%= tipos.get(i) %></option>
-                          <% } %>
-                         </select>
-                        <%
-                        if(errores!=null && errores.containsKey("tipoCamion")){
-                            out.println("<span class='text-danger'>"+errores.get("tipoCamion")+"</span>");
-                        }
-                        %>
-                    </div>
 
                     <div class="form-group">
                         <label for="">Modelo</label>
@@ -141,10 +126,10 @@ Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
                         <% for(int i = 2000; i <= 2024; i++) { %>
                           <option value="<%= i %>"><%= i %></option>
                              <option value="<%= i %>" <%= camion.getModelo() != null && camion.getModelo().equals(i) ? "selected" : "" %>><%= i %></option>
-
                         <% } %>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="">Capacidad</label>
                         <input type="text" value="<%=camion.getCapacidad() !=null ? camion.getCapacidad(): "" %>"  name="capacidad" id="capacidad" class="form-control">
@@ -167,7 +152,7 @@ Map<String,String> errores=(Map<String,String>) request.getAttribute("errores");
                     </div>
                     <div class="form-group">
                         <label for="">Disponibilidad</label>
-                        <input type="checkbox"  value="1" name="disponibilidad" id="disponibilidad" class="form-check-input"  <%=disponible %> >
+                        <input type="checkbox"  value="1" name="disponibilidad" id="disponibilidad" class="form-check-input"  <%= disponible %> >
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">Guardar</button>

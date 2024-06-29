@@ -6,6 +6,7 @@ import com.Valdez.app.rutas.models.enums.Tipos;
 import com.Valdez.app.rutas.services.CamionesService;
 import com.Valdez.app.rutas.services.IService;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@WebServlet("/camiones/editar")
 public class EdicionCamionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,7 +72,7 @@ public class EdicionCamionServlet extends HttpServlet {
         if(errores.isEmpty()){
 
             service.guardar(camion);
-            resp.sendRedirect(req.getContextPath()+"/camiones/listar");
+            resp.sendRedirect(req.getContextPath()+"/camiones/lista");
 
         }
         else{

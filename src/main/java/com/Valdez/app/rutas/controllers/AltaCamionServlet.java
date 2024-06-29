@@ -13,13 +13,25 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet("/camiones/alta")
 public class AltaCamionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Calendar calendario = Calendar.getInstance();
+        int anioActual = calendario.get(Calendar.YEAR);
+
+        List<Integer> listaAnios = new ArrayList<>();
+        for (int i = anioActual - 20; i <= anioActual + 1; i++) {
+            listaAnios.add(i);
+        }
+        req.setAttribute("anios", listaAnios);
+        //Envio de los enums
+        Tipos[] arrayCamiones = Tipos.values();
+        Marcas[] arrayMarcas = Marcas.values();
+        req.setAttribute("tipos", arrayCamiones);
+        req.setAttribute("marcas", arrayMarcas);
         getServletContext().getRequestDispatcher("/altaCamiones.jsp").forward(req,resp);
     }
 
@@ -81,5 +93,6 @@ public class AltaCamionServlet extends HttpServlet {
             req.setAttribute("errores",errores);
             getServletContext().getRequestDispatcher("/altaCamiones.jsp").forward(req,resp);
         }
+
     }
 }

@@ -71,8 +71,6 @@ List<Chofer> choferes =  (List<Chofer>) request.getAttribute("choferes");
    </div><!-- /.container-fluid -->
 </nav>
 
-
-
    <div class="container">
     <div class="row">
         <div class="col-6">

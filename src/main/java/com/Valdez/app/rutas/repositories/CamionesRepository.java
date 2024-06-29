@@ -35,8 +35,8 @@ public class CamionesRepository implements IRepository<Camion>{
 
     @Override
     public Camion getById(Long id) throws SQLException {
-        Camion camiones =null;
-        try(PreparedStatement stmt=conn.prepareStatement("SELECT * FROM CAMIONES WHERE ID_CAMION=?")){
+        Camion camiones = null;
+        try(PreparedStatement stmt = conn.prepareStatement("SELECT * FROM CAMIONES WHERE ID_CAMION=?")){
             stmt.setLong(1,id);
             try(ResultSet rs= stmt.executeQuery()){
                 if(rs.next()){

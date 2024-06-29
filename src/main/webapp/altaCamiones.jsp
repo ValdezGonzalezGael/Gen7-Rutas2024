@@ -114,17 +114,6 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                         %>
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Modelo</label>
-                        <input type="text" name="modelo" id="modelo" class="form-control" value="${param.modelo}">
-                        <%
-                            if (errores != null && errores.containsKey("modelo")){
-                                out.println("<span class='text-danger'>"+ errores.get("modelo")+"</span>");
-                            }
-                        %>
-                    </div>
-
-
             <div class="form-group">
                 <label for="marca">Marca</label>
                 <select name="marca_camion" id="marca_camion" class="form-control">
@@ -138,7 +127,24 @@ Map<String, String> errores = (Map<String, String>) request.getAttribute("errore
                     out.println("<span class='text-danger'>"+ errores.get("marca_camion")+"</span>");
                       }
                   %>
-            </div>
+
+             <div class="form-group">
+                 <label for="anio">Modelo</label>
+                 <select name="anio" id="anio" class="form-control">
+                     <%
+                         List<Integer> anios = (List<Integer>) request.getAttribute("anios");
+                         if (anios != null) {
+                             for (Integer anio : anios) {
+                     %>
+                                 <option value="<%= anio %>"><%= anio %></option>
+                     <%
+                             }
+                         }
+                     %>
+                 </select>
+             </div>
+
+             </div>
 
                     <div class="form-group">
                         <label for="">Capacidad</label>
